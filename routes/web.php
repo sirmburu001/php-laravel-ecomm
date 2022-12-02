@@ -14,6 +14,9 @@ use App\Http\Controllers\Productcontroller;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
+// username -> token or tokens
+// token number -> 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
+// ghp_BJ7PYGSZTLezmik407rHyOBOR5n8A322Dekt
 */
 
 Route::get('/login', function () {
