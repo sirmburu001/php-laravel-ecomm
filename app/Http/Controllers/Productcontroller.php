@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
+use Session;
 use GuzzleHttp\Handler\Proxy;
 
 class Productcontroller extends Controller
@@ -34,5 +35,10 @@ class Productcontroller extends Controller
             return redirect('/login');
         }
 
+    }
+    static function cartItem()
+    {
+        $userId = Session::get('user')['id'];
+        return Cart::where('user_id', $userId)->count();
     }
 }
