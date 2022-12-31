@@ -29,10 +29,13 @@
                   <textarea type="email" placeholder="Enter your address" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
-                  <label for="pwd">Payment Method</label> <br> <br>
-                  <input type="radio" name="payment"><span>online payment</span> <br> <br>
-                  <input type="radio" name="payment"><span>EMI payment</span> <br> <br>
-                  <input type="radio" name="payment"><span>payment on delivery</span> <br> <br>
+                    <p>
+                        <label for="pwd">Payment Method</label> <br> <br>
+                        <input type="radio" name="payment"><span> Online payment</span> <br> <br>
+                        <input type="radio" name="payment"><span> EMI payment</span> <br> <br>
+                        <input type="radio" name="payment"><span> Payment on delivery</span> <br> <br>
+                    </p>
+
                 </div>
                 <button type="submit" class="btn btn-primary">Order Now</button>
               </form>
