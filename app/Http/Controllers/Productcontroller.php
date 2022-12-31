@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
-use Session;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Handler\Proxy;
 
 class Productcontroller extends Controller
@@ -29,7 +30,7 @@ class Productcontroller extends Controller
             $cart->user_id = $req->session()->get('user')['id'];
             $cart->product_id = $req->product_id;
             $cart->save();
-            return redirect('/');
+            return redirect('cartlist');
 
         } else {
             return redirect('/login');
@@ -40,5 +41,35 @@ class Productcontroller extends Controller
     {
         $userId = Session::get('user')['id'];
         return Cart::where('user_id', $userId)->count();
+    }
+    function cartList()
+    {
+        if (session()->has('user')) {
+            $userId = Session::get('user')['id'];
+            $products = DB::table('cart')
+                ->join('products', 'cart.product_id', '=', 'products.id')
+                ->where('cart.user_id', $userId)
+                ->select('products.*', 'cart.id as cart_id')
+                ->get();
+            return view('cartlist', ['products' => $products]);
+        } else {
+            return redirect('/login');
+        }
+
+    }
+    function removeCart($id)
+    {
+        Cart::destroy($id);
+        return redirect('cartlist');
+    }
+    function orderNow()
+    {
+        $userId = Session::get('user')['id'];
+        $total = $products = DB::table('cart')
+            ->join('products', 'cart.product_id', '=', 'products.id')
+            ->where('cart.user_id', $userId)
+            ->sum('products.price', );
+
+        return view('ordernow', ['total' => $total]);
     }
 }
