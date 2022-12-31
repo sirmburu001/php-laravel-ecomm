@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Usercontroller;
 use App\Http\Controllers\Productcontroller;
+use Illuminate\Support\Facades\Session;
 
 
 
@@ -37,3 +38,4 @@ Route::Post("add_to_cart", [Productcontroller::class, 'addToCart']);
 Route::get("cartlist", [Productcontroller::class, 'cartList']);
 Route::get("removecart/{id}", [Productcontroller::class, 'removeCart']);
 Route::get("ordernow", [Productcontroller::class, 'orderNow']);
+Route::post("orderplace", [Productcontroller::class, 'orderPlace']);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Handler\Proxy;
@@ -71,5 +72,22 @@ class Productcontroller extends Controller
             ->sum('products.price', );
 
         return view('ordernow', ['total' => $total]);
+    }
+    function orderPlace(Request $req)
+    {
+        $userId = Session::get('user')['id'];
+        $allcart = Cart::Where('user_id', $userId)->get();
+        foreach ($allcart as $cart) {
+            $order = new Order;
+            $order->product_id = $cart['product_id'];
+            $order->user_id = $cart['user_id'];
+            $order->status = 'pending';
+            $order->payment_method = $req->payment;
+            $order->payment_status = 'pending';
+            $order->address = $req->address;
+            $order->save();
+            Cart::Where('user_id', $userId)->delete();
+        }
+        return redirect('/');
     }
 }
