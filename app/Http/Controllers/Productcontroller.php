@@ -90,4 +90,15 @@ class Productcontroller extends Controller
         }
         return redirect('/');
     }
+    function orderList()
+    {
+        $userId = Session::get('user')['id'];
+        $orders = DB::table('order')
+            ->join('products', 'order.product_id', '=', 'products.id')
+            ->where('order.user_id', $userId)
+            ->get();
+        return view('orderlist', ['orders' => $orders]);
+
+
+    }
 }

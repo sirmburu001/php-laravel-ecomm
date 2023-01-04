@@ -1,6 +1,6 @@
 @extends('master')
 @section('content')
-<!-- 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 -->
+<!-- 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 -->
 <div class="custom-product">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
